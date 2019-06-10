@@ -15,7 +15,7 @@
                 <div class="vx-card__title">
                     <h2 class="text-center">We are launching soon</h2>
                 </div>
-                <img src="../../assets/images/pages/rocket.png" alt="coming-soon" class="mx-auto mb-2" width="150">
+                <img src="assets/images/pages/rocket.png" alt="coming-soon" class="mx-auto mb-2" width="150">
                 <!-- <p>Thank you for checking out our app. We are under construction, we will be here soon with our new awesome app. </p> -->
                 <div class="count-down">
                     <countdown :time="new Date('03/09/2021 00:00:00').getTime() - new Date().getTime()">

@@ -228,7 +228,7 @@ export default{
 <style lang="scss">
 #faq-page {
     .faq-jumbotron-content {
-        background-image: url('../../assets/images/pages/faq.jpg');
+        background-image: url('assets/images/pages/faq.jpg');
         background-size: cover;
     }
 

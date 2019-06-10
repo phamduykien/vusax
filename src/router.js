@@ -45,22 +45,7 @@ const router = new Router({
                     path: '/',
                     redirect: '/views/CA/CAList'
                 },
-                {
-                    path: '/dashboard/analytics',
-                    name: 'dashboardAnalytics',
-                    component: () => import('./views/DashboardAnalytics.vue'),
-                    meta: {
-                        rule: 'editor'
-                    }
-                },
-                {
-                    path: '/dashboard/ecommerce',
-                    name: 'dashboardECommerce',
-                    component: () => import('./views/DashboardECommerce.vue'),
-                    meta: {
-                        rule: 'admin'
-                    }
-                },                
+
                 {
                     path: '/views/CA/CAList',
                     name: 'caList',
@@ -93,7 +78,7 @@ const router = new Router({
                 {
                     path: '/pages/login',
                     name: 'pageLogin',
-                    component: () => import('@/views/pages/Login.vue'),
+                    component: () => import('@/pages/Login.vue'),
                     meta: {
                         rule: 'editor'
                     }
@@ -101,7 +86,7 @@ const router = new Router({
                 {
                     path: '/pages/register',
                     name: 'pageRegister',
-                    component: () => import('@/views/pages/Register.vue'),
+                    component: () => import('@/pages/Register.vue'),
                     meta: {
                         rule: 'editor'
                     }
@@ -109,7 +94,7 @@ const router = new Router({
                 {
                     path: '/pages/forgot-password',
                     name: 'pageForgotPassword',
-                    component: () => import('@/views/pages/ForgotPassword.vue'),
+                    component: () => import('@/pages/ForgotPassword.vue'),
                     meta: {
                         rule: 'editor'
                     }
@@ -117,7 +102,7 @@ const router = new Router({
                 {
                     path: '/pages/reset-password',
                     name: 'pageResetPassword',
-                    component: () => import('@/views/pages/ResetPassword.vue'),
+                    component: () => import('@/pages/ResetPassword.vue'),
                     meta: {
                         rule: 'editor'
                     }
@@ -125,7 +110,7 @@ const router = new Router({
                 {
                     path: '/pages/lock-screen',
                     name: 'pageLockScreen',
-                    component: () => import('@/views/pages/LockScreen.vue'),
+                    component: () => import('@/pages/LockScreen.vue'),
                     meta: {
                         rule: 'editor'
                     }
@@ -133,7 +118,7 @@ const router = new Router({
                 {
                     path: '/pages/comingsoon',
                     name: 'pageComingSoon',
-                    component: () => import('@/views/pages/ComingSoon.vue'),
+                    component: () => import('@/pages/ComingSoon.vue'),
                     meta: {
                         rule: 'editor'
                     }
@@ -141,7 +126,7 @@ const router = new Router({
                 {
                     path: '/pages/error-404',
                     name: 'pageError404',
-                    component: () => import('@/views/pages/Error404.vue'),
+                    component: () => import('@/pages/Error404.vue'),
                     meta: {
                         rule: 'editor'
                     }
@@ -149,7 +134,7 @@ const router = new Router({
                 {
                     path: '/pages/error-500',
                     name: 'pageError500',
-                    component: () => import('@/views/pages/Error500.vue'),
+                    component: () => import('@/pages/Error500.vue'),
                     meta: {
                         rule: 'editor'
                     }
@@ -157,7 +142,7 @@ const router = new Router({
                 {
                     path: '/pages/not-authorized',
                     name: 'pageNotAuthorized',
-                    component: () => import('@/views/pages/NotAuthorized.vue'),
+                    component: () => import('@/pages/NotAuthorized.vue'),
                     meta: {
                         rule: 'editor'
                     }
@@ -165,7 +150,7 @@ const router = new Router({
                 {
                     path: '/pages/maintenance',
                     name: 'pageMaintenance',
-                    component: () => import('@/views/pages/Maintenance.vue'),
+                    component: () => import('@/pages/Maintenance.vue'),
                     meta: {
                         rule: 'editor'
                     }

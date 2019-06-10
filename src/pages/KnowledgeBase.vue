@@ -60,7 +60,7 @@ export default{
 
 <style lang="scss">
 .knowledge-base-jumbotron-content {
-    background-image: url('../../assets/images/pages/knowledge-base-cover.jpg');
+    background-image: url('assets/images/pages/knowledge-base-cover.jpg');
     background-size: cover;
 }
 </style>
