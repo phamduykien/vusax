@@ -1,0 +1,3 @@
+<template>
+    <MISAGrid></MISAGrid>
+</template>

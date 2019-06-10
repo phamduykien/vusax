@@ -29,26 +29,22 @@ Vue.use(Router)
 const router = new Router({
     mode: 'history',
     base: process.env.BASE_URL,
-    scrollBehavior () {
+    scrollBehavior() {
         return { x: 0, y: 0 }
     },
     routes: [
 
         {
-    // =============================================================================
-    // MAIN LAYOUT ROUTES
-    // =============================================================================
+            // =============================================================================
+            // MAIN LAYOUT ROUTES
+            // =============================================================================
             path: '',
             component: () => import('./layouts/main/Main.vue'),
             children: [
-                        {
+                {
                     path: '/',
-                    redirect: '/dashboard/analytics'
+                    redirect: '/views/CA/CAList'
                 },
-       // =============================================================================
-       // Theme Routes
-       // =============================================================================
-            
                 {
                     path: '/dashboard/analytics',
                     name: 'dashboardAnalytics',
@@ -64,22 +60,28 @@ const router = new Router({
                     meta: {
                         rule: 'admin'
                     }
+                },                
+                {
+                    path: '/views/CA/CAList',
+                    name: 'caList',
+                    component: () => import('./views/CA/CAList.vue'),
+                    meta: {
+                        rule: 'admin'
+                    }
                 },
 
-
-       
             ],
         },
-    // =============================================================================
-    // FULL PAGE LAYOUTS
-    // =============================================================================
+        // =============================================================================
+        // FULL PAGE LAYOUTS
+        // =============================================================================
         {
             path: '',
             component: () => import('@/layouts/full-page/FullPage.vue'),
             children: [
-        // =============================================================================
-        // PAGES
-        // =============================================================================
+                // =============================================================================
+                // PAGES
+                // =============================================================================
                 {
                     path: '/callback',
                     name: 'authCallback',
@@ -179,8 +181,8 @@ const router = new Router({
 })
 
 router.afterEach(() => {
-  // Remove initial loading
-  const appLoading = document.getElementById('loading-bg')
+    // Remove initial loading
+    const appLoading = document.getElementById('loading-bg')
     if (appLoading) {
         appLoading.style.display = "none";
     }
