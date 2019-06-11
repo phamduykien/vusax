@@ -134,7 +134,7 @@
           v-show="showFullSearch" 
           :class="{'flex': showFullSearch}" 
           class="search-full-container w-full h-full absolute pin-l rounded-lg">
-          <vx-auto-suggest 
+          <!-- <vx-auto-suggest 
             ref="navbarSearch" 
             :auto-focus="showFullSearch" 
             :data="navbarSearchAndPinList" 
@@ -144,7 +144,7 @@
             icon="SearchIcon" 
             background-overlay 
             @selected="selected" 
-            @closeSearchbar="showFullSearch = false"/>
+            @closeSearchbar="showFullSearch = false"/> -->
           <div class="absolute pin-r h-full z-50">
             <feather-icon 
               icon="XIcon" 
@@ -491,7 +491,7 @@ export default {
 
         // CART DROPDOWN
         cartItems() {
-            return this.$store.state.eCommerce.cartItems.slice().reverse();
+            return {}//PDKIEN Rem this.$store.state.eCommerce.cartItems.slice().reverse();
         },
 
         // PROFILE

@@ -6,15 +6,17 @@ export default {
   components: {},
   props: {},
   data: function() {
-return {};
-},
+    return {};
+  },
   computed: {},
   methods: {
     load: function() {},
     refresh: function() {},
     edit: function() {},
-    view :function(){},
-delete: function(){}
-  },
+    view: function() {
+      alert("x");
+    },
+    delete: function() {}
+  }
 };
 </script>

@@ -15,6 +15,9 @@
     "plugin:vue/base",
     "plugin:vue/essential",
     "plugin:vue/strongly-recommended"
-   ]
+   ],
+   "rules":{
+     
+   }
   
 }

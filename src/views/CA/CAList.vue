@@ -1,15 +1,18 @@
 <template>
   <div>
     <div>This is CAList</div>
-    <misa-grid/>
+    <button @click="view"/>
+    <MISAGrid/>
   </div>
 </template>
 
 <script>
-import MISAGrid from "@/components/Grid/MISAGrid.vue";
+
+import BaseViewList from "@/views/Base/BaseViewList.vue";
 export default {
+  extends: BaseViewList,
   components: {
-    MISAGrid,
+   
   }
 };
 </script>
