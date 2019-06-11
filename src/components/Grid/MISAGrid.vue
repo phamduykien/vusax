@@ -5,13 +5,14 @@
       <thead>
         <tr>
           <th
+            :class="{ active: sortKey == key }"
             v-for="(key,index) in columns"
             :key="index"
             @click="sortBy(key)"
-            :class="{ active: sortKey == key }"
           >
             {{ key | capitalize }}
-            <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'"></span>
+            <span class="arrow" 
+            :class="sortOrders[key] > 0 ? 'asc' : 'dsc'"></span>
           </th>
         </tr>
       </thead>

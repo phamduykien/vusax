@@ -1,0 +1,12 @@
+version: "3"
+networks: 
+  smecloud: 
+    driver: bridge
+services:
+  client:
+    build: .
+    networks: 
+      - smecloud
+    ports:
+      - "9999:80"
+    restart: always

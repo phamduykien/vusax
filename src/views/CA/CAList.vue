@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>This is CAList</div>
-    <MISAGrid/>
+    <misa-grid/>
   </div>
 </template>
 
