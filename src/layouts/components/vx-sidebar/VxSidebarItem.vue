@@ -9,20 +9,41 @@
 ========================================================================================== -->
 
 <template>
-    <div :class="[{'vs-sidebar-item-active':activeLink}, {'disabled-item pointer-events-none': isDisabled}]" class="vs-sidebar--item" v-if="canSee">
-        <router-link v-if="to" :to="to" :class="[{'router-link-active': activeLink}]" :target="target" exact>
-            <vs-icon v-if="!featherIcon" :icon-pack="iconPack" :icon="icon">
-            </vs-icon>
-            <feather-icon :icon="icon" :class="{'w-3 h-3': iconSmall}" v-else></feather-icon>
-            <slot></slot>
-        </router-link>
-        <a v-else :target="target" :href="href">
-            <vs-icon v-if="!featherIcon" :icon-pack="iconPack" :icon="icon">
-            </vs-icon>
-            <feather-icon :icon="icon" :class="{'w-3 h-3': iconSmall}" v-else></feather-icon>
-            <slot></slot>
-        </a>
-    </div>
+  <div 
+    v-if="canSee" 
+    :class="[{'vs-sidebar-item-active':activeLink}, {'disabled-item pointer-events-none': isDisabled}]" 
+    class="vs-sidebar--item">
+    <router-link 
+      v-if="to" 
+      :to="to" 
+      :class="[{'router-link-active': activeLink}]" 
+      :target="target" 
+      exact>
+      <vs-icon 
+        v-if="!featherIcon" 
+        :icon-pack="iconPack" 
+        :icon="icon"/>
+      <feather-icon 
+        v-else 
+        :icon="icon" 
+        :class="{'w-3 h-3': iconSmall}"/>
+      <slot/>
+    </router-link>
+    <a 
+      v-else 
+      :target="target" 
+      :href="href">
+      <vs-icon 
+        v-if="!featherIcon" 
+        :icon-pack="iconPack" 
+        :icon="icon"/>
+      <feather-icon 
+        v-else 
+        :icon="icon" 
+        :class="{'w-3 h-3': iconSmall}"/>
+      <slot/>
+    </a>
+  </div>
 </template>
 
 <script>
@@ -71,19 +92,6 @@ export default {
             activeLink: false,
         }
     },
-    watch: {
-        '$route'() {
-            this.CheckIsActive()
-        }
-    },
-    methods: {
-        CheckIsActive() {
-            if (this.to) {
-                if (this.$route.path.slice(1).includes(this.to.slice(1)) && this.to.slice(1)) this.activeLink = true
-                else this.activeLink = false
-            }
-        }
-    },
     computed: {
         canSee() {
             this.$acl.check(this.$store.state.userRole);
@@ -93,8 +101,21 @@ export default {
             return true
         }
     },
+    watch: {
+        '$route'() {
+            this.CheckIsActive()
+        }
+    },
     updated() {
         this.CheckIsActive();
-    }
+    },
+    methods: {
+        CheckIsActive() {
+            if (this.to) {
+                if (this.$route.path.slice(1).includes(this.to.slice(1)) && this.to.slice(1)) this.activeLink = true
+                else this.activeLink = false
+            }
+        }
+    },
 }
 </script>

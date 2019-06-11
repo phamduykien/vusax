@@ -9,32 +9,47 @@
 
 
 <template>
-    <div id="knowledge-base-page">
-        <!-- JUMBOTRON -->
-        <div class="knowledge-base-jumbotron">
-            <div class="knowledge-base-jumbotron-content lg:p-32 md:p-24 sm:p-16 py-8 rounded-lg mb-base">
-                <h1 class="mb-1 text-white">Dedicated Source Used on Website</h1>
-                <p class="text-white">Bonbon sesame snaps lemon drops marshmallow ice cream carrot cake croissant wafer.</p>
-                <vs-input placeholder="Search Topic or Keyword" v-model="knowledgeBaseSearchQuery" icon-pack="feather" icon="icon-search" size="large" class="w-full no-icon-border mt-6" />
-            </div>
-        </div>
-
-        <!-- KNOWLEDGE BASE CARDS  -->
-        <div class="vx-row">
-                <div class="vx-col w-full md:w-1/3 sm:w-1/2 mb-base" v-for="item in filteredKB" :key="item.id" @click="$router.push(item.url)">
-                    <vx-card class="text-center cursor-pointer">
-                        <img :src="require(`@/assets/images/pages/${item.graphic}`)" alt="graphic" width="180" class="mx-auto mb-4">
-                        <h4 class="mb-2">{{ item.title.toUpperCase() }}</h4>
-                        <small>{{ item.description }}</small>
-                    </vx-card>
-                </div>
-            </div>  
+  <div id="knowledge-base-page">
+    <!-- JUMBOTRON -->
+    <div class="knowledge-base-jumbotron">
+      <div class="knowledge-base-jumbotron-content lg:p-32 md:p-24 sm:p-16 py-8 rounded-lg mb-base">
+        <h1 class="mb-1 text-white">Dedicated Source Used on Website</h1>
+        <p class="text-white">Bonbon sesame snaps lemon drops marshmallow ice cream carrot cake croissant wafer.</p>
+        <vs-input 
+          v-model="knowledgeBaseSearchQuery" 
+          placeholder="Search Topic or Keyword" 
+          icon-pack="feather" 
+          icon="icon-search" 
+          size="large" 
+          class="w-full no-icon-border mt-6" />
+      </div>
     </div>
+
+    <!-- KNOWLEDGE BASE CARDS  -->
+    <div class="vx-row">
+      <div 
+        v-for="item in filteredKB" 
+        :key="item.id" 
+        class="vx-col w-full md:w-1/3 sm:w-1/2 mb-base" 
+        @click="$router.push(item.url)">
+        <vx-card class="text-center cursor-pointer">
+          <img 
+            :src="require(`@/assets/images/pages/${item.graphic}`)" 
+            alt="graphic" 
+            width="180" 
+            class="mx-auto mb-4">
+          <h4 class="mb-2">{{ item.title.toUpperCase() }}</h4>
+          <small>{{ item.description }}</small>
+        </vx-card>
+      </div>
+    </div>  
+  </div>
 </template>
 
 <script>
 
 export default{
+    components: {},
     data() {
         return {
             knowledgeBaseSearchQuery: '',
@@ -54,7 +69,6 @@ export default{
         }
     },
     methods: {},
-    components: {}
 }
 </script>
 

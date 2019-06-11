@@ -5,20 +5,25 @@
       <thead>
         <tr>
           <th
-            :class="{ active: sortKey == key }"
             v-for="(key,index) in columns"
+            :class="{ active: sortKey == key }"
             :key="index"
             @click="sortBy(key)"
           >
             {{ key | capitalize }}
-            <span class="arrow" 
-            :class="sortOrders[key] > 0 ? 'asc' : 'dsc'"></span>
+            <span 
+              :class="sortOrders[key] > 0 ? 'asc' : 'dsc'" 
+              class="arrow"/>
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(e,i) in entities" :key="i">
-          <td v-for="(key,j) in columns" :key="j">{{e[key]}}</td>
+        <tr 
+          v-for="(e,i) in entities" 
+          :key="i">
+          <td 
+            v-for="(key,j) in columns" 
+            :key="j">{{ e[key] }}</td>
         </tr>
       </tbody>
     </table>

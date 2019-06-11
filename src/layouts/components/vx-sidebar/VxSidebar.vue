@@ -10,50 +10,114 @@
 
 
 <template>
-    <div class="parentx">
-        <vs-sidebar ref="mainSidebar" :parent="parent" :hiddenBackground="clickNotClose" :reduce="reduce" default-index="-1" class="sidebarx main-menu-sidebar items-no-padding" v-model="isSidebarActive" :click-not-close="clickNotClose" :reduce-not-rebound="reduceNotRebound">
-            <div @mouseenter="sidebarMouseEntered" @mouseleave="sidebarMouseLeave">
-                <div class="header-sidebar flex items-end justify-between" slot="header">
-                    <div class="logo flex items-center">
-                        <img :src="logo" alt="logo" class="w-10 mr-4" v-if="logo">
-                        <span class="logo-text" v-show="isMouseEnter || !reduce" v-if="title">{{ title }}</span>
-                    </div>
-                    <div>
-                        <template v-if="showCloseButton">
-                            <feather-icon icon="XIcon" class="m-0 cursor-pointer" @click="$store.commit('TOGGLE_IS_SIDEBAR_ACTIVE', false)"></feather-icon>
-                        </template>
-                        <template v-else-if="!showCloseButton && !sidebarItemsMin">
-                            <feather-icon icon="DiscIcon" class="mr-0 cursor-pointer" svg-classes="stroke-current" v-show="!reduce" @click="toggleReduce(true)" id="btnSidebarToggler"></feather-icon>
-                            <feather-icon icon="CircleIcon" class="mr-0 cursor-pointer" svg-classes="stroke-current" v-show="reduce" @click="toggleReduce(false)" id="btnSidebarToggler"></feather-icon>
-                        </template>
-                    </div>
-                </div>
+  <div class="parentx">
+    <vs-sidebar 
+      ref="mainSidebar" 
+      :parent="parent" 
+      :hidden-background="clickNotClose" 
+      :reduce="reduce" 
+      v-model="isSidebarActive" 
+      :click-not-close="clickNotClose" 
+      :reduce-not-rebound="reduceNotRebound" 
+      default-index="-1" 
+      class="sidebarx main-menu-sidebar items-no-padding">
+      <div 
+        @mouseenter="sidebarMouseEntered" 
+        @mouseleave="sidebarMouseLeave">
+        <div 
+          slot="header" 
+          class="header-sidebar flex items-end justify-between">
+          <div class="logo flex items-center">
+            <img 
+              v-if="logo" 
+              :src="logo" 
+              alt="logo" 
+              class="w-10 mr-4">
+            <span 
+              v-show="isMouseEnter || !reduce" 
+              v-if="title" 
+              class="logo-text">{{ title }}</span>
+          </div>
+          <div>
+            <template v-if="showCloseButton">
+              <feather-icon 
+                icon="XIcon" 
+                class="m-0 cursor-pointer" 
+                @click="$store.commit('TOGGLE_IS_SIDEBAR_ACTIVE', false)"/>
+            </template>
+            <template v-else-if="!showCloseButton && !sidebarItemsMin">
+              <feather-icon 
+                v-show="!reduce" 
+                id="btnSidebarToggler" 
+                icon="DiscIcon" 
+                class="mr-0 cursor-pointer" 
+                svg-classes="stroke-current" 
+                @click="toggleReduce(true)"/>
+              <feather-icon 
+                v-show="reduce" 
+                id="btnSidebarToggler" 
+                icon="CircleIcon" 
+                class="mr-0 cursor-pointer" 
+                svg-classes="stroke-current" 
+                @click="toggleReduce(false)"/>
+            </template>
+          </div>
+        </div>
 
-                <div class="shadow-bottom" v-show="showShadowBottom"></div>
+        <div 
+          v-show="showShadowBottom" 
+          class="shadow-bottom"/>
 
-                <VuePerfectScrollbar ref="mainSidebarPs" class="scroll-area--main-sidebar pt-2" :settings="settings" @ps-scroll-y="psSectionScroll">
-                    <template v-for="(sidebarItem, index) in sidebarItems">
+        <VuePerfectScrollbar 
+          ref="mainSidebarPs" 
+          :settings="settings" 
+          class="scroll-area--main-sidebar pt-2" 
+          @ps-scroll-y="psSectionScroll">
+          <template v-for="(sidebarItem, index) in sidebarItems">
 
-                        <!-- GROUP ITEM HEADER -->
-                        <span :key="`header-${index}`" v-if="sidebarItem.header && !sidebarItemsMin" class="navigation-header truncate">{{ $t(sidebarItem.i18n) || sidebarItem.header }}</span>
-                        <template v-else-if="!sidebarItem.header">
+            <!-- GROUP ITEM HEADER -->
+            <span 
+              v-if="sidebarItem.header && !sidebarItemsMin" 
+              :key="`header-${index}`" 
+              class="navigation-header truncate">{{ $t(sidebarItem.i18n) || sidebarItem.header }}</span>
+            <template v-else-if="!sidebarItem.header">
 
-                            <!-- IF IT'S SINGLE ITEM -->
-                            <vx-sidebar-item ref="sidebarLink" :key="`sidebarItem-${index}`" v-if="!sidebarItem.submenu" :index="index" :to="sidebarItem.slug != 'external' ? sidebarItem.url : ''" :href="sidebarItem.slug == 'external' ? sidebarItem.url : ''" :icon="sidebarItem.icon" :target="sidebarItem.target" :isDisabled="sidebarItem.isDisabled">
-                                <span v-show="!sidebarItemsMin" class="truncate">{{ $t(sidebarItem.i18n) || sidebarItem.name }}</span>
-                                <vs-chip class="ml-auto" :color="sidebarItem.tagColor" v-if="sidebarItem.tag && (isMouseEnter || !reduce)">{{ sidebarItem.tag }}</vs-chip>
-                            </vx-sidebar-item>
+              <!-- IF IT'S SINGLE ITEM -->
+              <vx-sidebar-item 
+                v-if="!sidebarItem.submenu" 
+                ref="sidebarLink" 
+                :key="`sidebarItem-${index}`" 
+                :index="index" 
+                :to="sidebarItem.slug != 'external' ? sidebarItem.url : ''" 
+                :href="sidebarItem.slug == 'external' ? sidebarItem.url : ''" 
+                :icon="sidebarItem.icon" 
+                :target="sidebarItem.target" 
+                :is-disabled="sidebarItem.isDisabled">
+                <span 
+                  v-show="!sidebarItemsMin" 
+                  class="truncate">{{ $t(sidebarItem.i18n) || sidebarItem.name }}</span>
+                <vs-chip 
+                  v-if="sidebarItem.tag && (isMouseEnter || !reduce)" 
+                  :color="sidebarItem.tagColor" 
+                  class="ml-auto">{{ sidebarItem.tag }}</vs-chip>
+              </vx-sidebar-item>
 
-                            <!-- IF HAVE SUBMENU / DROPDOWN -->
-                            <template v-else>
-                                <vx-sidebar-group ref="sidebarGrp" :key="`group-${index}`" :openHover="openGroupHover" :group="sidebarItem" :groupIndex="index" :open="isGroupActive(sidebarItem)"></vx-sidebar-group>
-                            </template>
-                        </template>
-                    </template>
-                </VuePerfectScrollbar>
-            </div>
-        </vs-sidebar>
-    </div>
+              <!-- IF HAVE SUBMENU / DROPDOWN -->
+              <template v-else>
+                <vx-sidebar-group 
+                  ref="sidebarGrp" 
+                  :key="`group-${index}`" 
+                  :open-hover="openGroupHover" 
+                  :group="sidebarItem" 
+                  :group-index="index" 
+                  :open="isGroupActive(sidebarItem)"/>
+              </template>
+            </template>
+          </template>
+        </VuePerfectScrollbar>
+      </div>
+    </vs-sidebar>
+  </div>
 </template>
 
 <script>
@@ -62,7 +126,12 @@ import VxSidebarGroup from './VxSidebarGroup.vue';
 import VxSidebarItem  from './VxSidebarItem.vue';
 
 export default {
-    name: 'vx-sidebar',
+    name: 'VxSidebar',
+    components: {
+        VxSidebarGroup,
+        VxSidebarItem,
+        VuePerfectScrollbar,
+    },
     props: {
         sidebarItems: {
             type: Array,
@@ -160,6 +229,15 @@ export default {
             if(this.isSidebarActive && this.showCloseButton) this.$store.commit('TOGGLE_IS_SIDEBAR_ACTIVE', false);
         },
     },
+    mounted() {
+        this.$nextTick(() => {
+            window.addEventListener('resize', this.handleWindowResize);
+        });
+        this.setSidebarWidth();
+    },
+    beforeDestroy() {
+        window.removeEventListener('resize', this.handleWindowResize);
+    },
     methods: {
         sidebarMouseEntered() {
             if (this.reduce) this.$store.commit('UPDATE_SIDEBAR_ITEMS_MIN', false)
@@ -213,20 +291,6 @@ export default {
             if(this.$refs.mainSidebarPs.$el.scrollTop > 0) this.showShadowBottom = true;
             else this.showShadowBottom = false;
         },
-    },
-    components: {
-        VxSidebarGroup,
-        VxSidebarItem,
-        VuePerfectScrollbar,
-    },
-    mounted() {
-        this.$nextTick(() => {
-            window.addEventListener('resize', this.handleWindowResize);
-        });
-        this.setSidebarWidth();
-    },
-    beforeDestroy() {
-        window.removeEventListener('resize', this.handleWindowResize);
     },
 }
 </script>

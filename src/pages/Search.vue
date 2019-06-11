@@ -9,154 +9,254 @@
 
 
 <template>
-    <div id="search-page">
-        <div class="search-page__search-bar flex items-center">
-            <vs-input placeholder="Search" v-model="searchQuery" class="w-full input-rounded-full no-icon-border" icon="icon-search" icon-pack="feather" />
-        </div>
-        <div class="search-page__serch-menu flex flex-wrap items-center md:justify-between mt-8">
-            <div class="flex flex-wrap">
-                <span class="search-tab-filter">All</span>
-                <span class="search-tab-filter">Images</span>
-                <span class="search-tab-filter">Video</span>
-                <span class="search-tab-filter">Maps</span>
-                <span class="search-tab-filter">News</span>
-                <vs-dropdown vs-trigger-click class="search-tab-filter">
-                    <span>More</span>
-                    <vs-dropdown-menu class="search-page__more-dropdown">
-                        <vs-dropdown-item>Shopping</vs-dropdown-item>
-                        <vs-dropdown-item>Books</vs-dropdown-item>
-                        <vs-dropdown-item>Flight</vs-dropdown-item>
-                        <vs-dropdown-item>Finance</vs-dropdown-item>
-                        <vs-dropdown-item>Personal</vs-dropdown-item>
-                    </vs-dropdown-menu>
-                </vs-dropdown>
-            </div>
-            <div>
-                <vs-dropdown vs-trigger-click class="search-tab-filter">
-                    <span>Settings</span>
-                    <vs-dropdown-menu class="search-page__settings-dropdown w-64">
-                        <vs-dropdown-item>Search settings</vs-dropdown-item>
-                        <vs-dropdown-item>Language</vs-dropdown-item>
-                        <vs-dropdown-item>Turn on SafeSearch</vs-dropdown-item>
-                        <vs-dropdown-item>Hide Private Results</vs-dropdown-item>
-                        <vs-dropdown-item>Advanced Search</vs-dropdown-item>
-                    </vs-dropdown-menu>
-                </vs-dropdown>
-                <span class="search-tab-filter mr-0">Tools</span>
-            </div>
-        </div>
-        <div class="search-meta flex flex-wrap justify-between mt-6">
-            <span class="mb-4">Approx 84,00,00,000 results (0.35s)</span>
-            <div>
-                <vs-dropdown vs-trigger-click>
-                    <span class="flex items-center cursor-pointer">
-                        <span>Any Time</span>
-                        <feather-icon icon="ChevronDownIcon" style="width:1rem; height:1rem" class="cursor-pointer"></feather-icon>
-                    </span>
-                    <vs-dropdown-menu class="w-48">
-                        <vs-dropdown-item>Any Time</vs-dropdown-item>
-                        <vs-dropdown-item>Past Hour</vs-dropdown-item>
-                        <vs-dropdown-item>Past 24 Hours</vs-dropdown-item>
-                        <vs-dropdown-item>Past Week</vs-dropdown-item>
-                        <vs-dropdown-item>Past Month</vs-dropdown-item>
-                        <vs-dropdown-item>Past Year</vs-dropdown-item>
-                        <vs-dropdown-item>Custom Period</vs-dropdown-item>
-                    </vs-dropdown-menu>
-                </vs-dropdown>
-                &nbsp;
-                <vs-dropdown vs-trigger-click>
-                    <span class="flex items-center cursor-pointer">
-                        <span>All Results</span>
-                        <feather-icon icon="ChevronDownIcon" style="width:1rem; height:1rem" class="cursor-pointer"></feather-icon>
-                    </span>
-                    <vs-dropdown-menu class="w-32">
-                        <vs-dropdown-item>All Result</vs-dropdown-item>
-                        <vs-dropdown-item>Verbatim</vs-dropdown-item>
-                    </vs-dropdown-menu>
-                </vs-dropdown>
-            </div>
-        </div>
-
-        <!-- SEARCH RESULTS -->
-        <div class="vx-row mt-4 md:flex-row flex-col-reverse">
-            <div class="vx-col md:w-3/5 lg:w-2/3 w-full">
-                <vx-card class="search-page__search-results lg:p-2">
-                    <div class="vx-row search-Page__search-result" v-for="(result, index) in searchResults" :key="index" :class="{ 'mt-8': index }">
-                        <div class="vx-col mb-2" :class="result.resultImg || result.resultVideo ? 'lg:w-1/5 md:w-1/4 w-full' : 'w-full'" v-if="result.resultImg || result.resultVideo">
-                            <img :src="require(`@/assets/images/pages/${result.resultImg}`)" alt="result-img" class="responsive" v-if="result.resultImg">
-                            <video-player ref="player" class="media-video-player" :options="playerOptions(result.resultVideo[0])" v-else-if="result.resultVideo" />
-                        </div>
-                        <div class="vx-col" :class="result.resultImg || result.resultVideo ? 'lg:w-4/5 md:w-3/4' : 'w-full'">
-                            <a :href="result.linkUrl" class="inline-block text-2xl" target="_blank" rel="nofollow">{{ result.title }}</a><br>
-                            <a :href="result.resultUrl" class="inline-block text-success mb-1" target="_blank" rel="nofollow">{{ result.resultUrl }}</a><br>
-                            <!-- META DATA ROW -->
-                            <div class="flex flex-wrap items-center search-page__search-result-meta my-1" v-if="result.metaData">
-                                <!-- RATINGS -->
-                                <div class="flex items-center search-page__search-result-ratings mr-3" v-if="result.metaData.ratings">
-                                    <img src="@/assets/images/raty/star-on-2.png" alt="rating" v-for="i in Math.floor(result.metaData.ratings)" :key="i" class="mb-1" />
-                                    <img src="@/assets/images/raty/star-half-2.png" alt="rating" v-if="result.metaData.ratings % 1" class="mb-1" />
-                                </div>
-                                <div>
-                                    <span class="mr-2" v-for="(info, infoIndex) in result.metaData.info" :key="infoIndex">{{ info }} <span v-if="infoIndex < result.metaData.info.length - 1">|</span></span>
-                                </div>
-                            </div>
-                            <!-- RESULT DESC -->
-                            <span v-if="result.time">{{ result.time | date(true) }} - </span>
-                            <span>{{ result.description | truncate(225) | tailing('...') }}</span>
-                            <!-- SITE LINKS -->
-                            <div class="vx-row mt-6" v-if="result.sitelinks">
-                                <div class="vx-col w-full sm:w-1/2 lg:w-1/3 mb-5" v-for="(sitelink , index) in result.sitelinks" :key="index">
-                                    <a :href="sitelink.url" class="inline-block mb-1" target="_blank" rel="nofollow">{{ sitelink.title }}</a><br>
-                                    <p>{{ sitelink.description | truncate(50) | tailing('...') }}</p>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </vx-card>
-
-                <vs-pagination :total="40" v-model="currentPage" class="mt-base"></vs-pagination>
-            </div>
-
-            <!-- KNOWLEDGE PANEL -->
-            <div class="vx-col md:w-2/5 lg:w-1/3 w-full mb-base">
-                <vx-card card-border class="bg-transparent no-shadow">
-                    <div class="search-page__search-img-gallery vx-row mb-4">
-                        <div class="vx-col w-full">
-                            <img :src="require(`@/assets/images/pages/${knowledgePanel.img}`)" alt="gallery-img" class="responsive shadow-md rounded-lg">
-                        </div>
-                    </div>
-                    <h3>{{ knowledgePanel.title }}</h3>
-                    <small>{{ knowledgePanel.subtitle }}</small>
-                    <div class="knowledgePanel__external-link flex my-2">
-                        <feather-icon :icon="knowledgePanel.externalLink.icon" svgClasses="w-4 h-4 mb-1 mr-2"></feather-icon>
-                        <a :href="knowledgePanel.externalLink.url" target="_blank" rel="nofollow">{{ knowledgePanel.externalLink.title }}</a>
-                    </div>
-                    <p>{{ knowledgePanel.description }}</p>
-                    <div class="knowledge-panel__info-list flex mt-6">
-                        <div class="knowledge-panel__info flex-1 text-center border-solid border-grey-light border border-r-0 border-b-0 border-t-0" v-for="(info, index) in knowledgePanel.info" :key="info.title" :class="{'border-l-0': index == 0}">
-                            <p class="font-medium">{{ info.title }}</p>
-                            <small>{{ info.subtitle }}</small>
-                        </div>
-                    </div>
-                    <div class="knowledge-panel__meta-list mt-6">
-                        <div class="knowledge-panel__meta" v-for="meta in knowledgePanel.resultMetaList" :key="meta.name">
-                            <p><span class="font-medium mr-2">{{ meta.name }}:</span> {{ meta.value }}</p>
-                        </div>
-                    </div>
-                    <div class="knowledge-panel-suggestions mt-6">
-                        <p class="text-lg font-medium mb-2">People also search for</p>
-                        <div class="knowledge-panel__suggested-list flex flex-wrap">
-                            <div class="knowledge-panel__suggestion mr-4 text-center" v-for="search in knowledgePanel.suggestedSearches" :key="search.name">
-                                <a :href="search.url" target="_blank" rel="nofollow"><img :src="require(`@/assets/images/pages/${search.img}`)" alt="suggested-search-img" class="mx-auto" height="40px" width="40px"></a>
-                                <a :href="search.url" target="_blank" rel="nofollow" class="text-sm">{{ search.name }}</a>
-                            </div>
-                        </div>
-                    </div>
-                </vx-card>
-            </div>
-        </div>
+  <div id="search-page">
+    <div class="search-page__search-bar flex items-center">
+      <vs-input 
+        v-model="searchQuery" 
+        placeholder="Search" 
+        class="w-full input-rounded-full no-icon-border" 
+        icon="icon-search" 
+        icon-pack="feather" />
     </div>
+    <div class="search-page__serch-menu flex flex-wrap items-center md:justify-between mt-8">
+      <div class="flex flex-wrap">
+        <span class="search-tab-filter">All</span>
+        <span class="search-tab-filter">Images</span>
+        <span class="search-tab-filter">Video</span>
+        <span class="search-tab-filter">Maps</span>
+        <span class="search-tab-filter">News</span>
+        <vs-dropdown 
+          vs-trigger-click 
+          class="search-tab-filter">
+          <span>More</span>
+          <vs-dropdown-menu class="search-page__more-dropdown">
+            <vs-dropdown-item>Shopping</vs-dropdown-item>
+            <vs-dropdown-item>Books</vs-dropdown-item>
+            <vs-dropdown-item>Flight</vs-dropdown-item>
+            <vs-dropdown-item>Finance</vs-dropdown-item>
+            <vs-dropdown-item>Personal</vs-dropdown-item>
+          </vs-dropdown-menu>
+        </vs-dropdown>
+      </div>
+      <div>
+        <vs-dropdown 
+          vs-trigger-click 
+          class="search-tab-filter">
+          <span>Settings</span>
+          <vs-dropdown-menu class="search-page__settings-dropdown w-64">
+            <vs-dropdown-item>Search settings</vs-dropdown-item>
+            <vs-dropdown-item>Language</vs-dropdown-item>
+            <vs-dropdown-item>Turn on SafeSearch</vs-dropdown-item>
+            <vs-dropdown-item>Hide Private Results</vs-dropdown-item>
+            <vs-dropdown-item>Advanced Search</vs-dropdown-item>
+          </vs-dropdown-menu>
+        </vs-dropdown>
+        <span class="search-tab-filter mr-0">Tools</span>
+      </div>
+    </div>
+    <div class="search-meta flex flex-wrap justify-between mt-6">
+      <span class="mb-4">Approx 84,00,00,000 results (0.35s)</span>
+      <div>
+        <vs-dropdown vs-trigger-click>
+          <span class="flex items-center cursor-pointer">
+            <span>Any Time</span>
+            <feather-icon 
+              icon="ChevronDownIcon" 
+              style="width:1rem; height:1rem" 
+              class="cursor-pointer"/>
+          </span>
+          <vs-dropdown-menu class="w-48">
+            <vs-dropdown-item>Any Time</vs-dropdown-item>
+            <vs-dropdown-item>Past Hour</vs-dropdown-item>
+            <vs-dropdown-item>Past 24 Hours</vs-dropdown-item>
+            <vs-dropdown-item>Past Week</vs-dropdown-item>
+            <vs-dropdown-item>Past Month</vs-dropdown-item>
+            <vs-dropdown-item>Past Year</vs-dropdown-item>
+            <vs-dropdown-item>Custom Period</vs-dropdown-item>
+          </vs-dropdown-menu>
+        </vs-dropdown>
+        &nbsp;
+        <vs-dropdown vs-trigger-click>
+          <span class="flex items-center cursor-pointer">
+            <span>All Results</span>
+            <feather-icon 
+              icon="ChevronDownIcon" 
+              style="width:1rem; height:1rem" 
+              class="cursor-pointer"/>
+          </span>
+          <vs-dropdown-menu class="w-32">
+            <vs-dropdown-item>All Result</vs-dropdown-item>
+            <vs-dropdown-item>Verbatim</vs-dropdown-item>
+          </vs-dropdown-menu>
+        </vs-dropdown>
+      </div>
+    </div>
+
+    <!-- SEARCH RESULTS -->
+    <div class="vx-row mt-4 md:flex-row flex-col-reverse">
+      <div class="vx-col md:w-3/5 lg:w-2/3 w-full">
+        <vx-card class="search-page__search-results lg:p-2">
+          <div 
+            v-for="(result, index) in searchResults" 
+            :key="index" 
+            :class="{ 'mt-8': index }" 
+            class="vx-row search-Page__search-result">
+            <div 
+              v-if="result.resultImg || result.resultVideo" 
+              :class="result.resultImg || result.resultVideo ? 'lg:w-1/5 md:w-1/4 w-full' : 'w-full'" 
+              class="vx-col mb-2">
+              <img 
+                v-if="result.resultImg" 
+                :src="require(`@/assets/images/pages/${result.resultImg}`)" 
+                alt="result-img" 
+                class="responsive">
+              <video-player 
+                v-else-if="result.resultVideo" 
+                ref="player" 
+                :options="playerOptions(result.resultVideo[0])" 
+                class="media-video-player" />
+            </div>
+            <div 
+              :class="result.resultImg || result.resultVideo ? 'lg:w-4/5 md:w-3/4' : 'w-full'" 
+              class="vx-col">
+              <a 
+                :href="result.linkUrl" 
+                class="inline-block text-2xl" 
+                target="_blank" 
+                rel="nofollow">{{ result.title }}</a><br>
+              <a 
+                :href="result.resultUrl" 
+                class="inline-block text-success mb-1" 
+                target="_blank" 
+                rel="nofollow">{{ result.resultUrl }}</a><br>
+              <!-- META DATA ROW -->
+              <div 
+                v-if="result.metaData" 
+                class="flex flex-wrap items-center search-page__search-result-meta my-1">
+                <!-- RATINGS -->
+                <div 
+                  v-if="result.metaData.ratings" 
+                  class="flex items-center search-page__search-result-ratings mr-3">
+                  <img 
+                    v-for="i in Math.floor(result.metaData.ratings)" 
+                    :key="i" 
+                    src="@/assets/images/raty/star-on-2.png" 
+                    alt="rating" 
+                    class="mb-1" >
+                  <img 
+                    v-if="result.metaData.ratings % 1" 
+                    src="@/assets/images/raty/star-half-2.png" 
+                    alt="rating" 
+                    class="mb-1" >
+                </div>
+                <div>
+                  <span 
+                    v-for="(info, infoIndex) in result.metaData.info" 
+                    :key="infoIndex" 
+                    class="mr-2">{{ info }} <span v-if="infoIndex < result.metaData.info.length - 1">|</span></span>
+                </div>
+              </div>
+              <!-- RESULT DESC -->
+              <span v-if="result.time">{{ result.time | date(true) }} - </span>
+              <span>{{ result.description | truncate(225) | tailing('...') }}</span>
+              <!-- SITE LINKS -->
+              <div 
+                v-if="result.sitelinks" 
+                class="vx-row mt-6">
+                <div 
+                  v-for="(sitelink , index) in result.sitelinks" 
+                  :key="index" 
+                  class="vx-col w-full sm:w-1/2 lg:w-1/3 mb-5">
+                  <a 
+                    :href="sitelink.url" 
+                    class="inline-block mb-1" 
+                    target="_blank" 
+                    rel="nofollow">{{ sitelink.title }}</a><br>
+                  <p>{{ sitelink.description | truncate(50) | tailing('...') }}</p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </vx-card>
+
+        <vs-pagination 
+          :total="40" 
+          v-model="currentPage" 
+          class="mt-base"/>
+      </div>
+
+      <!-- KNOWLEDGE PANEL -->
+      <div class="vx-col md:w-2/5 lg:w-1/3 w-full mb-base">
+        <vx-card 
+          card-border 
+          class="bg-transparent no-shadow">
+          <div class="search-page__search-img-gallery vx-row mb-4">
+            <div class="vx-col w-full">
+              <img 
+                :src="require(`@/assets/images/pages/${knowledgePanel.img}`)" 
+                alt="gallery-img" 
+                class="responsive shadow-md rounded-lg">
+            </div>
+          </div>
+          <h3>{{ knowledgePanel.title }}</h3>
+          <small>{{ knowledgePanel.subtitle }}</small>
+          <div class="knowledgePanel__external-link flex my-2">
+            <feather-icon 
+              :icon="knowledgePanel.externalLink.icon" 
+              svg-classes="w-4 h-4 mb-1 mr-2"/>
+            <a 
+              :href="knowledgePanel.externalLink.url" 
+              target="_blank" 
+              rel="nofollow">{{ knowledgePanel.externalLink.title }}</a>
+          </div>
+          <p>{{ knowledgePanel.description }}</p>
+          <div class="knowledge-panel__info-list flex mt-6">
+            <div 
+              v-for="(info, index) in knowledgePanel.info" 
+              :key="info.title" 
+              :class="{'border-l-0': index == 0}" 
+              class="knowledge-panel__info flex-1 text-center border-solid border-grey-light border border-r-0 border-b-0 border-t-0">
+              <p class="font-medium">{{ info.title }}</p>
+              <small>{{ info.subtitle }}</small>
+            </div>
+          </div>
+          <div class="knowledge-panel__meta-list mt-6">
+            <div 
+              v-for="meta in knowledgePanel.resultMetaList" 
+              :key="meta.name" 
+              class="knowledge-panel__meta">
+              <p><span class="font-medium mr-2">{{ meta.name }}:</span> {{ meta.value }}</p>
+            </div>
+          </div>
+          <div class="knowledge-panel-suggestions mt-6">
+            <p class="text-lg font-medium mb-2">People also search for</p>
+            <div class="knowledge-panel__suggested-list flex flex-wrap">
+              <div 
+                v-for="search in knowledgePanel.suggestedSearches" 
+                :key="search.name" 
+                class="knowledge-panel__suggestion mr-4 text-center">
+                <a 
+                  :href="search.url" 
+                  target="_blank" 
+                  rel="nofollow"><img 
+                    :src="require(`@/assets/images/pages/${search.img}`)" 
+                    alt="suggested-search-img" 
+                    class="mx-auto" 
+                    height="40px" 
+                    width="40px"></a>
+                <a 
+                  :href="search.url" 
+                  target="_blank" 
+                  rel="nofollow" 
+                  class="text-sm">{{ search.name }}</a>
+              </div>
+            </div>
+          </div>
+        </vx-card>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -164,6 +264,9 @@ import { videoPlayer } from 'vue-video-player'
 import 'video.js/dist/video-js.css'
 
 export default{
+    components: {
+        videoPlayer,
+    },
     data() {
         return {
             searchQuery: 'Modern Admin',
@@ -305,9 +408,6 @@ export default{
         }
     },
     methods: {},
-    components: {
-        videoPlayer,
-    }
 }
 </script>
 

@@ -10,18 +10,26 @@
 
 
 <template>
-    <footer class="the-footer flex-wrap justify-between" :class="classes">
-        <span>COPYRIGHT @ {{ new Date().getFullYear() }} <a href="https://themeforest.net/user/pixinvent/portfolio?ref=pixinvent" target="_blank" rel="nofollow">Pixinvent</a>, All rights Reserved</span>
-        <span class="md:flex hidden items-center">
-            <span>Hand-crafted & Made with</span>
-            <feather-icon icon="HeartIcon" svgClasses="stroke-current text-danger w-6 h-6" class="ml-2" />
-        </span>
-    </footer>
+  <footer 
+    :class="classes" 
+    class="the-footer flex-wrap justify-between">
+    <span>COPYRIGHT @ {{ new Date().getFullYear() }} <a 
+      href="https://themeforest.net/user/pixinvent/portfolio?ref=pixinvent" 
+      target="_blank" 
+      rel="nofollow">Pixinvent</a>, All rights Reserved</span>
+    <span class="md:flex hidden items-center">
+      <span>Hand-crafted & Made with</span>
+      <feather-icon 
+        icon="HeartIcon" 
+        svg-classes="stroke-current text-danger w-6 h-6" 
+        class="ml-2" />
+    </span>
+  </footer>
 </template>
 
 <script>
 export default {
-    name: "the-footer",
+    name: "TheFooter",
     props: {
         classes: {
             type: String,

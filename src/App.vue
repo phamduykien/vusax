@@ -9,9 +9,9 @@
 
 
 <template>
-	<div id="app">
-		<router-view></router-view>
-	</div>
+  <div id="app">
+    <router-view/>
+  </div>
 </template>
 
 <script>
@@ -30,6 +30,9 @@ export default {
         console.log(e);
       }
     },
+    mounted() {
+        this.toggleClassInBody(themeConfig.theme)
+    },
     methods: {
         toggleClassInBody(className) {
             if (className == 'dark') {
@@ -43,9 +46,6 @@ export default {
                 if (document.body.className.match('theme-semi-dark')) document.body.classList.remove('theme-semi-dark');
             }
         }
-    },
-    mounted() {
-        this.toggleClassInBody(themeConfig.theme)
     },
 }
 </script>
