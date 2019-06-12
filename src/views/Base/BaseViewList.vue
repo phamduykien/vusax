@@ -8,8 +8,16 @@ export default {
   data: function() {
     return {};
   },
+  //Xử lý sau khi render giao diện xong
+  //Thực hiện load dữ liệu danh sách
+  //CreatedBy: PDKIEN 12/06/2019
+  mounted: function() {
+    this.load();
+  },
   computed: {},
   methods: {
+    //Gọi api lấy dữ liệu danh sách
+    //CreatedBy: PDKIEN 12/06/2019
     load: function() {},
     refresh: function() {},
     edit: function() {},

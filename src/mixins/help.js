@@ -1,12 +1,10 @@
 import { String } from "core-js";
 
-export default {
-    props: {
-        helpId: String,
-    },
+export default {    
+    helpId: "",
     methods: {
         showHelp: function () {
-            alert("Show help " + this.helpId);
+            alert("Show help " + this.$options.helpId);
         }
     }
 };
