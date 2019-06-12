@@ -29,7 +29,7 @@
     <vx-sidebar 
       :sidebar-items="sidebarItems" 
       :logo="require('@/assets/images/logo/logo.png')" 
-      title="Vuesax" 
+      title="MISASME.NET" 
       parent=".layout--main" />
 
     <div 

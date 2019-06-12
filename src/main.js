@@ -71,6 +71,9 @@ import i18n from './i18n/i18n'
 // Vuesax Admin Filters
 import './filters/filters'
 
+// Global mixins
+import helpMixin from './mixins/help'
+Vue.mixin(helpMixin);
 
 // Clipboard
 import VueClipboard from 'vue-clipboard2'
