@@ -4,7 +4,7 @@
     <button @click="view" style="width:30px; height:20px"/>
     <button @click="showHelp" style="width:30px; height:20px"/>
 
-    <MISAGrid/>
+    <MsGrid/>
   </div>
 </template>
 
