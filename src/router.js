@@ -54,6 +54,14 @@ const router = new Router({
                         rule: 'admin'
                     }
                 },                
+                {
+                    path: '/views/Test/Grid',
+                    name: 'testGrid',
+                    component: () => import('./views/Test/Grid.vue'),
+                    meta: {
+                        rule: 'admin'
+                    }
+                },    
             ],
         },
         // =============================================================================

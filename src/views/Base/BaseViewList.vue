@@ -6,7 +6,10 @@ export default {
   components: {},
   props: {},
   data: function() {
-    return {};
+    return {
+      selected: [],
+      entities: []
+    };
   },
   //Xử lý sau khi render giao diện xong
   //Thực hiện load dữ liệu danh sách
@@ -22,6 +25,7 @@ export default {
     refresh: function() {},
     edit: function() {},
     view: function() {
+      debugger;
       alert("x");
     },
     delete: function() {}

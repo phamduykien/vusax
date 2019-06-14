@@ -24,4 +24,10 @@ export default[
     icon: "InfoIcon",
     i18n: "Invoice",
   },
+  {
+    url: '/views/Test/Grid',
+    name: "Grid",
+    icon: "InfoIcon",
+    i18n: "Test Grid",
+  },
 ]
