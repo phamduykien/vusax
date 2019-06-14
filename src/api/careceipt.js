@@ -45,4 +45,4 @@ const ApiService = {
     }
 }
 
-export default ApiService
+export default CAReceiptAPI
