@@ -53,7 +53,15 @@ const router = new Router({
                     meta: {
                         rule: 'admin'
                     }
-                },                
+                },
+                {
+                    path: '/views/CA/CADetail/:id',
+                    name: 'caDetail',                   
+                    component: () => import('./views/CA/CADetail.vue'),
+                    meta: {
+                        rule: 'admin'
+                    }
+                },
                 {
                     path: '/views/Test/Grid',
                     name: 'testGrid',
@@ -61,7 +69,7 @@ const router = new Router({
                     meta: {
                         rule: 'admin'
                     }
-                },    
+                },
             ],
         },
         // =============================================================================

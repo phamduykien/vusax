@@ -2,6 +2,7 @@
   <div>
     <div>Danh sách thu chi</div>
     <button @click="view" style="width:50px; height:20px; margin-right:8px;">View</button>
+    <button @click="edit" style="width:50px; height:20px; margin-right:8px;">Edit</button>
     <button @click="help" style="width:50px; height:20px">Help</button>
     <vs-table multiple v-model="selected" :data="entities">
       <template slot="thead">
@@ -51,8 +52,7 @@ export default {
   },
   data: function() {
     return {
-      selected: [],  
-      extras:[]    ,
+      selected: [],        
       entities: [
         {
           id: 1,

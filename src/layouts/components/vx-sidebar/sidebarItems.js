@@ -28,6 +28,6 @@ export default[
     url: '/views/Test/Grid',
     name: "Grid",
     icon: "InfoIcon",
-    i18n: "Test Grid",
+    
   },
 ]
