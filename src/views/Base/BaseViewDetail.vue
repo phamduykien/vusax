@@ -15,17 +15,16 @@ export default {
     };
   },
   //Xử lý khi route param thay đổi mà không render lại giao diện
-  beforeRouteUpdate(to, from, next) {
-    // react to route changes...
+  beforeRouteUpdate(to, from, next) {    
     debugger;
-    next();
+    //next();
   },
-  watch: {
-    $route(to, from) {
-      debugger;
-      // Kiểm tra khi route thay đổi để xử lý vì Vue không create lại component
-    }
-  },
+  // watch: {
+  //   $route(to, from) {
+  //     debugger;
+  //     // Kiểm tra khi route thay đổi để xử lý vì Vue không create lại component
+  //   }
+  // },
   //Xử lý sau khi render giao diện xong
   //Thực hiện load dữ liệu chi tiết
   //CreatedBy: PDKIEN 12/06/2019

@@ -17,7 +17,7 @@
   Author: Pixinvent
   Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
-export default[
+export default [
   {
     url: '/views/CA/CAList',
     name: "CAList",
@@ -28,6 +28,5 @@ export default[
     url: '/views/Test/Grid',
     name: "Grid",
     icon: "InfoIcon",
-    
   },
 ]
