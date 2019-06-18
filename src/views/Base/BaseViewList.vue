@@ -7,6 +7,9 @@ export default {
   name: "BaseViewList",
   components: {},
   props: {},
+  configs: {
+    entity: ""
+  },
   data: function() {
     return {
       selected: [],
@@ -18,6 +21,7 @@ export default {
   //CreatedBy: PDKIEN 12/06/2019
   mounted: function() {
     this.load();
+    console.log("Entity " + this.$options.configs.entity);
   },
   computed: {
     selectedItem: function() {
@@ -40,10 +44,7 @@ export default {
         router.push({ name: "caDetail", params: { id: itemId } });
       }
     },
-    view: function() {
-      debugger;
-      alert("x");
-    },
+    view: function() {},
     delete: function() {}
   }
 };
