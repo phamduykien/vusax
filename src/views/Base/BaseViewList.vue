@@ -1,10 +1,12 @@
 <script>
 import router from "../../router";
+import BaseAPI from "../../api/baseapi";
 
 //Class base cho màn hình danh sách
 //CreatedBy: PDKIEN 11/06/2019
 export default {
   name: "BaseViewList",
+  mixins:[BaseAPI],
   components: {},
   props: {},
   data: function() {
@@ -19,7 +21,8 @@ export default {
   //Thực hiện load dữ liệu danh sách
   //CreatedBy: PDKIEN 12/06/2019
   mounted: function() {
-    this.load();    
+    this.load();
+    et();
   },
   computed: {
     //Item đang select hiện tại

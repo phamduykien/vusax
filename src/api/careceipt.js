@@ -1,48 +1,22 @@
 import axios from 'axios'
-const ApiService = {
+import BaseAPI from './baseapi'
 
-    init(baseURL) {
-        axios.defaults.baseURL = baseURL;
+export default {
+    extends: BaseAPI,
+    methods: {
+        getData() {
+
+        }
     },
+    API: {
+        get() {
+            debugger;
+        },
+        post() {
 
-    setHeader() {
-        axios.defaults.headers.common["Authorization"] = `Bearer ${TokenService.getToken()}`
-    },
+        },
+        delete() {
 
-    removeHeader() {
-        axios.defaults.headers.common = {}
-    },
-
-    get(resource) {
-        return axios.get(resource)
-    },
-
-    post(resource, data) {
-        return axios.post(resource, data)
-    },
-
-    put(resource, data) {
-        return axios.put(resource, data)
-    },
-
-    delete(resource) {
-        return axios.delete(resource)
-    },
-
-    /**
-     * Perform a custom Axios request.
-     *
-     * data is an object containing the following properties:
-     *  - method
-     *  - url
-     *  - data ... request payload
-     *  - auth (optional)
-     *    - username
-     *    - password
-    **/
-    customRequest(data) {
-        return axios(data)
+        }
     }
 }
-
-export default CAReceiptAPI
