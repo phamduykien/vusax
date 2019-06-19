@@ -7,12 +7,11 @@ export default {
   name: "BaseViewList",
   components: {},
   props: {},
-  configs: {
-    entity: ""
-  },
   data: function() {
     return {
-      selected: [],
+      refType: null,
+      entity: "",
+      selectedItems: [],
       entities: []
     };
   },
@@ -20,11 +19,12 @@ export default {
   //Thực hiện load dữ liệu danh sách
   //CreatedBy: PDKIEN 12/06/2019
   mounted: function() {
-    this.load();
-    console.log("Entity " + this.$options.configs.entity);
+    this.load();    
   },
   computed: {
-    selectedItem: function() {
+    //Item đang select hiện tại
+    //CreatedBy PDKIEN 19/06/2019
+    currentItem: function() {
       return this.selected.length > 0
         ? this.selected[this.selected.length - 1]
         : null;
@@ -33,13 +33,15 @@ export default {
   methods: {
     //Gọi api lấy dữ liệu danh sách
     //CreatedBy: PDKIEN 12/06/2019
-    load: function() {},
+    load: function() {
+      debugger;
+    },
     refresh: function() {},
     //Gọi màn hình chi tiết ở chế độ sửa , nếu có nhiều dòng đang chọn thì sửa dòng cuối cùng
     //CreatedBy PDKIEN 14/06/2019
     edit: function() {
-      if (this.selectedItem) {
-        var itemId = this.selectedItem.id.toString();
+      if (this.currentItem) {
+        var itemId = this.currentItem.id.toString();
         debugger;
         router.push({ name: "caDetail", params: { id: itemId } });
       }

@@ -4,7 +4,7 @@
     <button @click="view" style="width:50px; height:20px; margin-right:8px;">View</button>
     <button @click="edit" style="width:50px; height:20px; margin-right:8px;">Edit</button>
     <button @click="help" style="width:50px; height:20px">Help</button>
-    <vs-table multiple v-model="selected" :data="entities">
+    <vs-table multiple v-model="selectedItems" :data="entities">
       <template slot="thead">
         <vs-th>FullName</vs-th>
         <vs-th>Amount</vs-th>
@@ -26,7 +26,7 @@
 
     <br>
 
-    <pre>{{ selected }}</pre>
+    <pre>{{ selectedItems }}</pre>
   </div>
 </template>
 
@@ -35,18 +35,17 @@ import BaseViewList from "@/views/Base/BaseViewList.vue";
 import DataAPI from "../../api/calist";
 
 export default {
-  extends: BaseViewList,
-  helpId: "help CAList",
+  extends: BaseViewList, 
+ 
   created: function() {},
   mounted: function() {},
   methods: {
     load: function() {
-
       DataAPI.get({}).then(res => {
         this.entities = res.data;
       });
     }
-  },  
+  },
   components: {}
 };
 </script>
