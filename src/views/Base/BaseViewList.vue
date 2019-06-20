@@ -6,7 +6,7 @@ import BaseAPI from "../../api/baseapi";
 //CreatedBy: PDKIEN 11/06/2019
 export default {
   name: "BaseViewList",
-  mixins:[BaseAPI],
+  mixins: [BaseAPI],
   components: {},
   props: {},
   data: function() {
@@ -33,14 +33,13 @@ export default {
     },
     api: function() {
       return BaseAPI;
-    },
+    }
   },
   methods: {
     //Gọi api lấy dữ liệu danh sách
     //CreatedBy: PDKIEN 12/06/2019
     load: function() {
-      debugger;
-      this.api.getList();
+      this.entities = this.api.getList();
     },
     refresh: function() {},
     //Gọi màn hình chi tiết ở chế độ sửa , nếu có nhiều dòng đang chọn thì sửa dòng cuối cùng
