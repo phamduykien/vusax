@@ -32,19 +32,22 @@
 
 <script>
 import BaseViewList from "@/views/Base/BaseViewList.vue";
-import DataAPI from "@/api/careceipt";
+import DataAPI from "@/api/calist";
 
 export default {
   extends: BaseViewList,
   mixins: [DataAPI],
+  data: function() {
+    return {
+      entityName: "CAReceipts",
+      refType: 500
+    };
+  },
   created: function() {},
   mounted: function() {},
   methods: {
-    load: function() {
-     // API.get();
-      DataAPI.get({}).then(res => {
-        this.entities = res.data;
-      });
+    view: function() {
+      debugger;
     }
   },
   components: {}

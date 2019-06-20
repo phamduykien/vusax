@@ -22,22 +22,25 @@ export default {
   //CreatedBy: PDKIEN 12/06/2019
   mounted: function() {
     this.load();
-    et();
   },
   computed: {
     //Item đang select hiện tại
     //CreatedBy PDKIEN 19/06/2019
     currentItem: function() {
-      return this.selected.length > 0
+      return this.selectedItems.length > 0
         ? this.selected[this.selected.length - 1]
         : null;
-    }
+    },
+    api: function() {
+      return BaseAPI;
+    },
   },
   methods: {
     //Gọi api lấy dữ liệu danh sách
     //CreatedBy: PDKIEN 12/06/2019
     load: function() {
       debugger;
+      this.api.getList();
     },
     refresh: function() {},
     //Gọi màn hình chi tiết ở chế độ sửa , nếu có nhiều dòng đang chọn thì sửa dòng cuối cùng
@@ -45,7 +48,7 @@ export default {
     edit: function() {
       if (this.currentItem) {
         var itemId = this.currentItem.id.toString();
-        debugger;
+
         router.push({ name: "caDetail", params: { id: itemId } });
       }
     },

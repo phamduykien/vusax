@@ -1,21 +1,31 @@
 import axios from 'axios'
 
+
 export default {
     name: "BaseAPI",
-    baseURL: null,
-    entityName: null,
-    initAPI() {
-        axios.defaults.headers.common["Authorization"] = `Bearer ${TokenService.getToken()}`
+    created: function () {
+       // axios.defaults.headers.common["Authorization"] = `Bearer ${TokenService.getToken()}`
     },
-    API: {
-        get() {
-
-        },
-        post() {
-
-        },
-        delete() {
-
+    computed: {
+        api: function () {
+            return {
+                getList: function () {
+                    return axios.get("http://5d00c165d021760014b752f5.mockapi.io/api/v1/careceipts")
+                        .then((res) => {
+                            
+                            return res.data;
+                        })
+                }   
+            }
         }
-    }
+    },
+    privates:{
+        getList: function () {
+            return axios.get("http://5d00c165d021760014b752f5.mockapi.io/api/v1/careceipts")
+                .then((res) => {
+                    debugger;
+                    return res.data;
+                })
+        }   
+    }   
 }
