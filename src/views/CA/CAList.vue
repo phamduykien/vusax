@@ -32,15 +32,18 @@
 
 <script>
 import BaseViewList from "@/views/Base/BaseViewList.vue";
-import DataAPI from "@/api/calist";
+import DataAPI from "@/api/caapi";
 
 export default {
   extends: BaseViewList,
   mixins: [DataAPI],
   data: function() {
-    return {
+    return {      
+      detailRouterName: "caDetail",      
+      selectedItems: [],
+      entities: [],
       entityName: "CAReceipts",
-      refType: 500
+      refType: 201
     };
   },
   created: function() {},

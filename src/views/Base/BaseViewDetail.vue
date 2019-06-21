@@ -7,7 +7,13 @@ export default {
   name: "BaseViewDetail",
   components: {},
   props: {
-    id: String
+    id: {
+      type: String
+    },
+    editMode: {
+      type: String,
+      default: "View"
+    }
   },
   data: function() {
     return {
@@ -15,7 +21,7 @@ export default {
     };
   },
   //Xử lý khi route param thay đổi mà không render lại giao diện
-  beforeRouteUpdate(to, from, next) {    
+  beforeRouteUpdate(to, from, next) {
     debugger;
     //next();
   },
@@ -35,15 +41,28 @@ export default {
   methods: {
     //Gọi api lấy dữ liệu danh sách
     //CreatedBy: PDKIEN 12/06/2019
-    load: function() {},
-    refresh: function() {},
-    delete: function() {},
-    save: function() {
+    load() {
       debugger;
     },
-    cancel: function() {},
-    moveNext: function() {},
-    moveBack: function() {}
+    refresh() {},
+    //Xóa dữ liệu chi tiết
+    //CreatedBy: PDKIEN 21/06/2019
+    delete() {},
+    //Cất dữ liệu
+    //CreatedBy: PDKIEN 21/06/2019
+    save() {},
+    //Hủy thao tác trên giao diện chi tiết hiện tại
+    //CreatedBy: PDKIEN 21/06/2019
+    cancel() {},
+    //Chuyển sang bản ghi chi tiết tiếp theo
+    //CreatedBy: PDKIEN 21/06/2019
+    moveNext() {},
+    //Chuyển sang bản ghi chi tiết trước đó
+    //CreatedBy: PDKIEN 21/06/2019
+    moveBack() {},
+    //Đóng giao diện chi tiết
+    //CreatedBy: PDKIEN 21/06/2019
+    close() {}
   }
 };
 </script>

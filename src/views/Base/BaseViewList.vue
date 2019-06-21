@@ -12,7 +12,8 @@ export default {
   data: function() {
     return {
       refType: null,
-      entity: "",
+      detailRouterName: null,
+      entityName: null,
       selectedItems: [],
       entities: []
     };
@@ -28,7 +29,7 @@ export default {
     //CreatedBy PDKIEN 19/06/2019
     currentItem: function() {
       return this.selectedItems.length > 0
-        ? this.selected[this.selected.length - 1]
+        ? this.selectedItems[this.selectedItems.length - 1]
         : null;
     },
     api: function() {
@@ -38,21 +39,28 @@ export default {
   methods: {
     //Gọi api lấy dữ liệu danh sách
     //CreatedBy: PDKIEN 12/06/2019
-    load: function() {
-      this.entities = this.api.getList();
+    load() {
+      this.api.getList().then(res => {
+        this.entities = res.data;
+      });
     },
-    refresh: function() {},
+    refresh() {},
     //Gọi màn hình chi tiết ở chế độ sửa , nếu có nhiều dòng đang chọn thì sửa dòng cuối cùng
     //CreatedBy PDKIEN 14/06/2019
-    edit: function() {
+    edit() {
       if (this.currentItem) {
         var itemId = this.currentItem.id.toString();
-
-        router.push({ name: "caDetail", params: { id: itemId } });
+        router.push({
+          name: this.detailRouterName,
+          params: {
+            editMode: "Edit",
+            id: itemId
+          }
+        });
       }
     },
-    view: function() {},
-    delete: function() {}
+    view() {},
+    delete() {}
   }
 };
 </script>

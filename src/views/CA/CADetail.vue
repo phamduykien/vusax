@@ -10,17 +10,18 @@
 </template>
 <script>
 import BaseViewDetail from "@/views/Base/BaseViewDetail.vue";
-import DataAPI from "../../api/calist";
+import DataAPI from "../../api/caapi";
 import router from "../../router";
 
 export default {
   extends: BaseViewDetail,
   props: {
-    itemId: String
+    
   },
   methods: {
     moveNext: function() {
-      var p = this.$route.params.id;
+      debugger;
+      var p = this.id;
       router.push({ name: "caDetail", params: { id: Number.parseInt(p) + 1 } });
     }
   }

@@ -56,8 +56,9 @@ const router = new Router({
                 },
                 {
                     path: '/views/CA/CADetail/:id',
-                    name: 'caDetail',                   
+                    name: 'caDetail',
                     component: () => import('./views/CA/CADetail.vue'),
+                    props: true,
                     meta: {
                         rule: 'admin'
                     }
