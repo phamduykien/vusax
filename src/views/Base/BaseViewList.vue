@@ -44,7 +44,11 @@ export default {
         this.entities = res.data;
       });
     },
-    refresh() {},
+    //Refresh dữ liệu với bộ tham số hiện tại
+    //CreatedBy: PDKIEN 21/06/2019
+    refresh() {
+      this.load();
+    },
     //Gọi màn hình chi tiết ở chế độ sửa , nếu có nhiều dòng đang chọn thì sửa dòng cuối cùng
     //CreatedBy PDKIEN 14/06/2019
     edit() {
@@ -59,8 +63,23 @@ export default {
         });
       }
     },
-    view() {},
-    delete() {}
+    view() {
+      if (this.currentItem) {
+        var itemId = this.currentItem.id.toString();
+        router.push({
+          name: this.detailRouterName,
+          params: {
+            editMode: "View",
+            id: itemId
+          }
+        });
+      }
+    },
+    delete() {
+      if (this.selectedItems.length>0){
+        this.api.deleteEntities(this.selectedItems);
+      }
+    }
   }
 };
 </script>
