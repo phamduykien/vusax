@@ -9,7 +9,6 @@ export default {
     computed: {
         api: function () {
             return {
-                aa: printivateMethods,
                 getList: function () {
                     return axios.get("http://5d00c165d021760014b752f5.mockapi.io/api/v1/careceipts")
                         .then((res) => {
@@ -18,6 +17,9 @@ export default {
                         })
                 },
                 deleteList: function (entities) {
+
+                },
+                getById: function (id) {
 
                 }
             }

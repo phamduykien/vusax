@@ -21,28 +21,36 @@ export default {
     };
   },
   //Xử lý khi route param thay đổi mà không render lại giao diện
+  //CreatedBy: PDKIEN
   beforeRouteUpdate(to, from, next) {
-    debugger;
-    //next();
+    next();
   },
-  // watch: {
-  //   $route(to, from) {
-  //     debugger;
-  //     // Kiểm tra khi route thay đổi để xử lý vì Vue không create lại component
-  //   }
-  // },
+  watch: {
+    //Xử lý khi thay đổi editMode
+    //CreatedBy: PDKIEN 22/06/2019
+    editMode: function(oldVal, newVal) {}
+  },
   //Xử lý sau khi render giao diện xong
   //Thực hiện load dữ liệu chi tiết
   //CreatedBy: PDKIEN 12/06/2019
   mounted: function() {
     this.load();
   },
-  computed: {},
+  computed: {
+    enableControl: function() {
+      return this.editMode != "View";
+    }
+  },
   methods: {
+    changeEditMode(mode) {},
     //Gọi api lấy dữ liệu danh sách
     //CreatedBy: PDKIEN 12/06/2019
     load() {
-      debugger;
+      if (this.id) {
+        this.api.getById(this.id).then(res => {
+          this.currentItem = res.data;
+        });
+      }
     },
     refresh() {},
     //Xóa dữ liệu chi tiết
